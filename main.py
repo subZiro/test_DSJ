@@ -87,7 +87,7 @@ def work3(connection):
 			ProductRequest.ProductId = Product.ProductID
 		AND 
 			Payments.PayDate BETWEEN '2020-02-01' AND '2020-05-31'
-		GROUP BY MONTH(Payments.PayDate)
+		GROUP BY ProductRequest.ProductId, MONTH(Payments.PayDate)
 	"""
 	payments = execute_read(connection, sql)
 	for pay in payments:
@@ -107,11 +107,11 @@ def work3_b(connection):
 		LEFT JOIN 
 			Product ON ProductRequest.ProductId = Product.ProductID
 		WHERE 
-			Payments.PayDate BETWEEN '2020-01-01' AND '2020-05-31'
-		GROUP BY 
-			MONTH(Payments.PayDate)
+			Payments.PayDate BETWEEN '2020-01-01' AND '2020-07-31'
+		GROUP BY ProductRequest.ProductId, MONTH(Payments.PayDate)
+			
 	"""
-
+	'''MONTH(Payments.PayDate)'''
 	payments = execute_read(connection, sql)
 	for pay in payments:
 		#print(f'У продукта "{pay[0]}" сумма = {pay[1]}')
