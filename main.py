@@ -66,7 +66,6 @@ def work2(connection):
     	GROUP BY month
     	HAVING SumProduct > {n}
 	"""
-
 	products = execute_read(connection, sql)
 	print(f'продукты сумма которых в месяц больше {n}')
 	for prod in products:
@@ -108,13 +107,10 @@ def work3_b(connection):
 			Product ON ProductRequest.ProductId = Product.ProductID
 		WHERE 
 			Payments.PayDate BETWEEN '2020-01-01' AND '2020-07-31'
-		GROUP BY ProductRequest.ProductId, MONTH(Payments.PayDate)
-			
+		GROUP BY ProductRequest.ProductId, MONTH(Payments.PayDate)	
 	"""
-	'''MONTH(Payments.PayDate)'''
 	payments = execute_read(connection, sql)
 	for pay in payments:
-		#print(f'У продукта "{pay[0]}" сумма = {pay[1]}')
 		print(f'Продукт "{pay[0]}", сумма платежей = {pay[1]}, Сумма кредита={pay[2]}')
 
 
